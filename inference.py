@@ -58,9 +58,9 @@ else:
     config.distributed = False  # Mark as non-distributed
     print(f"Single GPU mode on device {device}")
 
-print(f'Free VRAM {get_cuda_free_memory_gb(device)} GB')
+log_gpu_memory('pre-load', device)
 low_memory = get_cuda_free_memory_gb(device) < 40
-low_memory = True
+print(f'[memory] low_memory={low_memory} (threshold: 40 GB free)')
 
 torch.set_grad_enabled(False)
 
@@ -137,6 +137,7 @@ if low_memory:
     DynamicSwapInstaller.install_model(pipeline.text_encoder, device=device)
 pipeline.generator.to(device=device)
 pipeline.vae.to(device=device)
+log_gpu_memory('post-load', device)
 
 extended_prompt_path = config.data_path
 dataset = TextDataset(prompt_path=config.data_path, extended_prompt_path=extended_prompt_path)
