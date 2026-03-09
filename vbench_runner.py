@@ -53,11 +53,14 @@ def _vram_peak_gb(readings):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('--base-seed',    required=True, type=int)
+    ap.add_argument('--base-seed',    required=False, type=int, default=None)
     ap.add_argument('--vbench-json',  required=True)
     ap.add_argument('--base-config',  required=True)
     ap.add_argument('--work-dir',     required=True)
     args = ap.parse_args()
+
+    if args.base_seed is None:
+        args.base_seed = random.randint(0, 2**31 - 1)
 
     work_dir   = Path(args.work_dir)
     out_base   = work_dir / 'outputs' / 'vbench' / 'videos'
