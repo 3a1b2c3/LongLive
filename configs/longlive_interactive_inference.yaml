@@ -26,8 +26,8 @@ switch_frame_indices: 40, 80, 120, 160, 200
 global_sink: true
 context_noise: 0
 
-generator_ckpt: longlive_models/models/longlive_base.pt
-lora_ckpt: longlive_models/models/lora.pt
+generator_ckpt: ./longlive_models/models longlive_base.pt
+lora_ckpt: ./longlive_models/models lora.pt
 
 adapter:
   type: "lora"

@@ -10,9 +10,9 @@ root = Path(__file__).parent
 DOWNLOADS = [
     {
         'repo_id':   'Efficient-Large-Model/LongLive-1.3B',
-        'local_dir': root,
-        'verify':    ['longlive_models/models/longlive_base.pt',
-                      'longlive_models/models/lora.pt'],
+        'local_dir': root / 'longlive_models',
+        'verify':    ['models/longlive_base.pt',
+                      'models/lora.pt'],
         'label':     'LongLive-1.3B',
     },
     {
@@ -55,18 +55,11 @@ for d in DOWNLOADS:
         print(f'  ERROR during snapshot_download: {exc}')
 
     for rel in d['verify']:
-        ckpt = loc / rel if d['local_dir'] == root else loc / Path(rel).name
-        # for LongLive the verify paths are relative to root
-        if d['local_dir'] == root:
-            ckpt = root / rel
+        ckpt = loc / rel
         if not ckpt.exists():
             print(f'  WARNING: {rel} not found — retrying with hf_hub_download ...')
             try:
-                hf_hub_download(
-                    repo_id=repo,
-                    filename=rel,
-                    local_dir=str(loc if d['local_dir'] != root else root),
-                )
+                hf_hub_download(repo_id=repo, filename=rel, local_dir=str(loc))
             except Exception as exc:
                 print(f'  ERROR during hf_hub_download: {exc}')
         _check(ckpt, rel)
