@@ -12,7 +12,7 @@ if not "%~1"=="" (
 )
 set PROMPTS_TXT=%~dp0_vbench_interactive_prompts.txt
 set TMP_CFG=%~dp0_vbench_interactive_config.yaml
-set BASE_CFG=%~dp0configs\longlive_interactive_inference.yaml
+set BASE_CFG=%~dp0configs\longlive_interactive_inference_vbench.yaml
 
 python _vbench_write_prompts.py "%VBENCH_JSON%" "%PROMPTS_TXT%" "%BASE_CFG%" "%TMP_CFG%"
 if errorlevel 1 exit /b 1
