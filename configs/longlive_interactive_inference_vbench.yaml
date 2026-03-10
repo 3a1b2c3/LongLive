@@ -17,7 +17,7 @@ model_kwargs:
 data_path: longlive_models/prompts/interactive_example.jsonl
 output_folder: videos/interactive
 inference_iter: -1
-num_output_frames: 161
+num_output_frames: 162
 num_inference_steps: 5
 height: 720
 width: 960
